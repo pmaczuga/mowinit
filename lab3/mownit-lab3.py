@@ -1,4 +1,6 @@
 from math import *
+import random
+import scipy.misc as scpm
 
 f = lambda x: x**2 - 2.71 * x + 1
 g = lambda x: sin(x - pi/2) * e**(-x * sin(x))
@@ -41,5 +43,26 @@ def newton(f, borders, iters, max_diff):
     for i in range(iters):
         x1 = x0 - f(x0) / 1
 
-print(falsi(k, (-10,0), 1000000, 10e-8))
-print(bisection(k, (-10,10), 1000000, 10e-8))
+
+def gradient(fun, k=0.3, l=0.2, eps=10e-6):
+    arg = 30
+
+    der = scpm.derivative(fun, arg)
+    m = 0
+    while(abs(der) >  eps):
+        arg_new = arg - der*k + m*l
+        m = arg_new - arg
+        der = scpm.derivative(fun, arg_new)
+        arg = arg_new
+        print(arg)
+    return arg
+
+def main():
+    # print(falsi(k, (-10,0), 1000000, 10e-8))
+    # print(bisection(k, (-10,10), 1000000, 10e-8))
+
+    fun = lambda x: -sin(x) * 0.1 * x + 0.01*x**2
+    print(gradient(fun, k=0.7, l=0.9, eps=10e-6))
+    print("DONE")
+
+main()
