@@ -1,9 +1,11 @@
 import numpy as np
+np.set_printoptions(threshold=np.inf)
 import wikipedia
 import string
+import re
 
 filename = "Pages titles.txt"
-num_of_pages = 10
+num_of_pages = 3
 
 num_of_words = dict()
 dictionary = dict()
@@ -21,7 +23,7 @@ def fill_num_of_words(file):
             page = e.options[0]
         print("Processing: ",  title)
 
-        contents.append(page.content.strip(string.punctuation).split(" "))
+        contents.append(re.sub('['+string.punctuation+']', '', page.content).split())
         for word in contents[-1]:
             num_of_words[word] = num_of_words.setdefault(word, 0) + 1
 
@@ -30,19 +32,31 @@ def fill_dictionary():
     length = len(num_of_words)
     print("Number of words: ", length)
     for word in num_of_words.keys():
-        vector_as_list = [0 for j in range(length)]
-        vector_as_list[i] = 1
-        dictionary[word] = tuple(vector_as_list)
+        vector = np.zeros(length, dtype=np.int)
+        vector[i] = 1
+        dictionary[word] = vector
         i += 1
 
-def fill_titles_and_contents():
-    pass
+def fill_vectores(file):
+    length = len(dictionary)
+    for title, content in zip(titles,contents):
+        print("To vector: ", title)
+        vector = np.zeros(length, dtype=np.int)
+        for word in content:
+            vector += dictionary[word]
+        vectors.append(vector)
+        
 
 def main():
     wikipedia.set_lang("en")
     file = open(filename, "r")
 
     fill_num_of_words(file)
+    fill_dictionary()
+    fill_vectores(file)
+
+    print(contents[0])
+    print(vectors[0])
 
 
     file.close()
