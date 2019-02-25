@@ -1,5 +1,5 @@
 ## Laboratorium 3
 
-[Instrukcja]()
+[Instrukcja](https://github.com/pmaczuga/mowinit/blob/master/lab3/Instrukcja.pdf)
 
 TODO
