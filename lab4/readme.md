@@ -2,4 +2,4 @@
 
 [Instrukcja](https://github.com/pmaczuga/mowinit/blob/master/lab4/Instrukcja.pdf)
 
-TODO
+[Sprawozdanie](https://github.com/pmaczuga/mowinit/blob/master/lab4/lab4.pdf)
